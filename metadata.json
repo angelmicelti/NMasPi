@@ -1,0 +1,6 @@
+{
+  "name": "Gestor de Planes IES",
+  "description": "Plataforma docente en tiempo real para la gestión y registro de lecturas y actividades de razonamiento matemático del IES Virgen de Valme (Andalucía).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
