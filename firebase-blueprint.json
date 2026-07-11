@@ -1,0 +1,243 @@
+{
+  "entities": {
+    "reading": {
+      "title": "Lectura Matemática",
+      "description": "Registro de una lectura matemática realizada en clase",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 100,
+          "description": "Título de la lectura"
+        },
+        "author": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 100,
+          "description": "Autor de la lectura"
+        },
+        "course": {
+          "type": "string",
+          "enum": [
+            "1º ESO",
+            "2º ESO",
+            "3º ESO",
+            "4º ESO",
+            "1º Bachillerato",
+            "2º Bachillerato",
+            "Otro"
+          ],
+          "description": "Curso o nivel académico"
+        },
+        "department": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50,
+          "description": "Departamento responsable (ej. Matemáticas)"
+        },
+        "teacherId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "UID del profesor creador"
+        },
+        "teacherName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100,
+          "description": "Nombre completo del profesor"
+        },
+        "teacherEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "Email oficial del profesor"
+        },
+        "term": {
+          "type": "string",
+          "enum": [
+            "1º Trimestre",
+            "2º Trimestre",
+            "3º Trimestre"
+          ],
+          "description": "Trimestre de realización"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Fecha de la actividad"
+        },
+        "url": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Enlace al material o recurso"
+        },
+        "studentsCount": {
+          "type": "integer",
+          "description": "Número de alumnos participantes"
+        },
+        "evaluation": {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "Comentarios, valoración o evaluación de la lectura"
+        },
+        "rating": {
+          "type": "integer",
+          "description": "Valoración numérica del 1 al 5"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Fecha de creación del registro"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Fecha de última actualización"
+        }
+      },
+      "required": [
+        "title",
+        "author",
+        "course",
+        "teacherId",
+        "teacherName",
+        "teacherEmail",
+        "term",
+        "date"
+      ]
+    },
+    "activity": {
+      "title": "Actividad de Razonamiento Matemático",
+      "description": "Registro de una actividad de razonamiento lógico-matemático",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 100,
+          "description": "Título de la actividad"
+        },
+        "topic": {
+          "type": "string",
+          "enum": [
+            "Aritmética",
+            "Álgebra",
+            "Geometría",
+            "Funciones",
+            "Estadística y Probabilidad",
+            "Lógica",
+            "Resolución de Problemas",
+            "Otro"
+          ],
+          "description": "Bloque de contenido principal de la actividad"
+        },
+        "course": {
+          "type": "string",
+          "enum": [
+            "1º ESO",
+            "2º ESO",
+            "3º ESO",
+            "4º ESO",
+            "1º Bachillerato",
+            "2º Bachillerato",
+            "Otro"
+          ],
+          "description": "Curso o nivel académico"
+        },
+        "teacherId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "UID del profesor creador"
+        },
+        "teacherName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100,
+          "description": "Nombre completo del profesor"
+        },
+        "teacherEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "Email oficial del profesor"
+        },
+        "term": {
+          "type": "string",
+          "enum": [
+            "1º Trimestre",
+            "2º Trimestre",
+            "3º Trimestre"
+          ],
+          "description": "Trimestre de realización"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Fecha de la actividad"
+        },
+        "url": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Enlace al material o recurso"
+        },
+        "durationMinutes": {
+          "type": "integer",
+          "description": "Duración de la actividad en minutos"
+        },
+        "studentsCount": {
+          "type": "integer",
+          "description": "Número de alumnos participantes"
+        },
+        "evaluation": {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "Comentarios, valoración o evaluación de la actividad"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": [
+            "Muy fácil",
+            "Fácil",
+            "Media",
+            "Difícil",
+            "Muy difícil"
+          ],
+          "description": "Dificultad percibida por el alumnado"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Fecha de creación del registro"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Fecha de última actualización"
+        }
+      },
+      "required": [
+        "title",
+        "topic",
+        "course",
+        "teacherId",
+        "teacherName",
+        "teacherEmail",
+        "term",
+        "date"
+      ]
+    }
+  },
+  "firestore": {
+    "/readings/{readingId}": {
+      "schema": {
+        "$ref": "#/entities/reading"
+      },
+      "description": "Colección de lecturas matemáticas"
+    },
+    "/activities/{activityId}": {
+      "schema": {
+        "$ref": "#/entities/activity"
+      },
+      "description": "Colección de actividades de razonamiento matemático"
+    }
+  }
+}
