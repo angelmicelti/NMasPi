@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f766e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0369a1;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+  
+  <!-- Outer circle background with shadow -->
+  <circle cx="256" cy="256" r="230" fill="url(#grad)" filter="url(#shadow)" />
+  
+  <!-- Subtle decorative inner circle -->
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.2" stroke-dasharray="8 8" />
+  
+  <!-- "N+π" Text Group -->
+  <g transform="translate(256, 256)" text-anchor="middle" dominant-baseline="central">
+    <!-- N Letter -->
+    <text x="-70" y="0" font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" font-size="140" font-weight="900" fill="#ffffff" letter-spacing="-5">N</text>
+    
+    <!-- Plus Symbol -->
+    <text x="5" y="-15" font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" font-size="90" font-weight="700" fill="#38bdf8">+</text>
+    
+    <!-- Pi Symbol (π) -->
+    <text x="85" y="10" font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" font-size="140" font-weight="bold" fill="#ffffff">π</text>
+  </g>
+  
+  <!-- Tiny bottom subtitle/badge for the IES Virgen de Valme -->
+  <rect x="176" y="380" width="160" height="28" rx="14" fill="#ffffff" fill-opacity="0.15" />
+  <text x="256" y="398" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="800" fill="#ffffff" letter-spacing="2">VALME</text>
+</svg>
