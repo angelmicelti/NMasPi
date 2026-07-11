@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(({ command }) => {
   return {
-    base: './',
+    base: command === 'build' ? '/NMasPi/' : '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

@@ -24,7 +24,10 @@
 
     <!-- Service Worker Registration -->
     <script>
-      if ('serviceWorker' in navigator) {
+      if ('serviceWorker' in navigator && 
+          !window.location.hostname.includes('localhost') && 
+          !window.location.hostname.includes('127.0.0.1') && 
+          !window.location.hostname.includes('run.app')) {
         window.addEventListener('load', () => {
           // Register with relative path to ensure compatibility across local host and subpaths like GitHub Pages
           navigator.serviceWorker.register('./sw.js')
@@ -34,6 +37,15 @@
             .catch((error) => {
               console.error('[PWA] Service Worker registration failed:', error);
             });
+        });
+      } else if ('serviceWorker' in navigator) {
+        // If there was an active service worker in a previous dev session, unregister it to keep development fresh
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (let registration of registrations) {
+            registration.unregister().then((success) => {
+              if (success) console.log('[PWA] Unregistered stale service worker for clean development.');
+            });
+          }
         });
       }
     </script>
