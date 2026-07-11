@@ -1,0 +1,44 @@
+{
+  "name": "Gestor de Planes IES",
+  "short_name": "NMasPi",
+  "description": "Plataforma docente para la gestión de lecturas y actividades de razonamiento matemático del I.E.S. Virgen de Valme.",
+  "start_url": "/NMasPi/",
+  "scope": "/NMasPi/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f766e",
+  "theme_color": "#0f766e",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
