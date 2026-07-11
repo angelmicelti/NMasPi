@@ -1,0 +1,115 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isTeacher() {
+      return isSignedIn() && (
+        request.auth.token.email.endsWith('@g.educaand.es') ||
+        request.auth.token.email.endsWith('@juntadeandalucia.es') ||
+        request.auth.token.email.endsWith('@gmail.com')
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation for Reading
+    function isValidReading(data) {
+      return data.keys().hasAll(['title', 'author', 'course', 'teacherId', 'teacherName', 'teacherEmail', 'term', 'date', 'department'])
+        && data.title is string && data.title.size() >= 3 && data.title.size() <= 100
+        && data.author is string && data.author.size() >= 3 && data.author.size() <= 100
+        && data.course in ['1º ESO', '2º ESO', '3º ESO', '4º ESO', '1º Bachillerato', '2º Bachillerato', 'Otro']
+        && data.department is string && data.department.size() >= 2 && data.department.size() <= 50
+        && data.teacherId == request.auth.uid
+        && data.teacherEmail == request.auth.token.email
+        && data.term in ['1º Trimestre', '2º Trimestre', '3º Trimestre']
+        && data.date is string && data.date.size() == 10
+        && (!('url' in data) || (data.url is string && data.url.size() <= 500))
+        && (!('studentsCount' in data) || (data.studentsCount is int && data.studentsCount >= 0))
+        && (!('evaluation' in data) || (data.evaluation is string && data.evaluation.size() <= 2000))
+        && (!('rating' in data) || (data.rating is int && data.rating >= 1 && data.rating <= 5));
+    }
+
+    // Validation for Activity
+    function isValidActivity(data) {
+      return data.keys().hasAll(['title', 'topic', 'course', 'teacherId', 'teacherName', 'teacherEmail', 'term', 'date'])
+        && data.title is string && data.title.size() >= 3 && data.title.size() <= 100
+        && data.topic in ['Aritmética', 'Álgebra', 'Geometría', 'Funciones', 'Estadística y Probabilidad', 'Lógica', 'Resolución de Problemas', 'Otro']
+        && data.course in ['1º ESO', '2º ESO', '3º ESO', '4º ESO', '1º Bachillerato', '2º Bachillerato', 'Otro']
+        && data.teacherId == request.auth.uid
+        && data.teacherEmail == request.auth.token.email
+        && data.term in ['1º Trimestre', '2º Trimestre', '3º Trimestre']
+        && data.date is string && data.date.size() == 10
+        && (!('url' in data) || (data.url is string && data.url.size() <= 500))
+        && (!('durationMinutes' in data) || (data.durationMinutes is int && data.durationMinutes >= 0))
+        && (!('studentsCount' in data) || (data.studentsCount is int && data.studentsCount >= 0))
+        && (!('evaluation' in data) || (data.evaluation is string && data.evaluation.size() <= 2000))
+        && (!('difficulty' in data) || (data.difficulty in ['Muy fácil', 'Fácil', 'Media', 'Difícil', 'Muy difícil']));
+    }
+
+    // Readings collection
+    match /readings/{readingId} {
+      allow read: if isTeacher();
+      
+      allow create: if isTeacher() 
+        && isValidId(readingId)
+        && isValidReading(incoming())
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+
+      allow update: if isTeacher()
+        && isValidId(readingId)
+        && existing().teacherId == request.auth.uid
+        && isValidReading(incoming())
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().teacherId == existing().teacherId;
+
+      allow delete: if isTeacher()
+        && isValidId(readingId)
+        && existing().teacherId == request.auth.uid;
+    }
+
+    // Activities collection
+    match /activities/{activityId} {
+      allow read: if isTeacher();
+
+      allow create: if isTeacher()
+        && isValidId(activityId)
+        && isValidActivity(incoming())
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+
+      allow update: if isTeacher()
+        && isValidId(activityId)
+        && existing().teacherId == request.auth.uid
+        && isValidActivity(incoming())
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().teacherId == existing().teacherId;
+
+      allow delete: if isTeacher()
+        && isValidId(activityId)
+        && existing().teacherId == request.auth.uid;
+    }
+  }
+}
